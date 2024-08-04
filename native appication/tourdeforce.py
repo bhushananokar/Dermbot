@@ -46,7 +46,7 @@ class SkinConditionClassifier(QMainWindow):
         self.init_ui()
 
     def init_ui(self):
-        # Set the main window properties
+      
         self.setWindowTitle("Dermbot")
         self.setGeometry(200, 200, 1600, 1200)
 
@@ -55,14 +55,14 @@ class SkinConditionClassifier(QMainWindow):
 
         layout = QVBoxLayout()
 
-        # Create a black background for the main window
+      
         central_widget.setStyleSheet("background-color: black;")
 
         central_frame = QFrame()
         central_frame.setStyleSheet("background-color: transparent;")
         central_layout = QVBoxLayout()
 
-        # Create a grey square with rounded corners to display the content
+       
         content_widget = QWidget(self)
         content_widget.setStyleSheet("background-color: #333333; border-radius: 20px;")
 
@@ -83,9 +83,9 @@ class SkinConditionClassifier(QMainWindow):
         self.result_label.setStyleSheet("color: white;")
         central_layout.addWidget(self.result_label, alignment=Qt.AlignHCenter)
 
-        central_layout.addStretch(1)  # Add spacing
+        central_layout.addStretch(1) 
 
-        # Create a browse button
+      
         self.browse_button = QPushButton("Browse Image", self)
         self.browse_button.clicked.connect(self.browse_image)
         self.browse_button.setStyleSheet(
@@ -94,7 +94,7 @@ class SkinConditionClassifier(QMainWindow):
         )
         central_layout.addWidget(self.browse_button, alignment=Qt.AlignHCenter)
 
-        # Create a report button
+       
         self.report_button = QPushButton("Report", self)
         self.report_button.clicked.connect(self.generate_report)
         self.report_button.setStyleSheet(
@@ -103,25 +103,25 @@ class SkinConditionClassifier(QMainWindow):
         )
         central_layout.addWidget(self.report_button, alignment=Qt.AlignHCenter)
 
-        central_layout.addStretch(1)  # Add spacing
+        central_layout.addStretch(1)  
 
         content_widget.setLayout(central_layout)
         central_frame.setLayout(QVBoxLayout())
         central_frame.layout().addWidget(content_widget)
 
         layout.addWidget(central_frame, alignment=Qt.AlignCenter)
-        layout.addStretch(1)  # Add spacing
+        layout.addStretch(1)  
 
         central_widget.setLayout(layout)
 
-        # Store the image path for generating the report
+        
         self.image_path = None
 
     def browse_image(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open Image File", "", "Image Files (*.jpg *.jpeg *.png *.jfif)")
         if file_path:
             self.image_path = file_path
-            self.result_label.setText("")  # Clear previous result
+            self.result_label.setText("")  
             self.display_image(file_path)
 
     def display_image(self, image_path):
@@ -134,12 +134,12 @@ class SkinConditionClassifier(QMainWindow):
         q_image = QImage(image_data.data, w, h, bytes_per_line, QImage.Format_RGB888)
         pixmap = QPixmap.fromImage(q_image)
 
-        # Adding margins and rounded corners to the displayed image
+       
         rounded_pixmap = self.rounded_pixmap(pixmap)
         self.image_label.setPixmap(rounded_pixmap)
 
     def rounded_pixmap(self, pixmap):
-        # Create a new QPixmap and QPainter object for the rounded pixmap
+       
         rounded_pixmap = QPixmap(pixmap.size())
         rounded_pixmap.fill(Qt.GlobalColor.transparent)
         painter = QPainter(rounded_pixmap)
@@ -151,7 +151,7 @@ class SkinConditionClassifier(QMainWindow):
         painter.setClipPath(path)
         painter.drawPixmap(0, 0, pixmap)
 
-        # End the painting process
+      
         painter.end()
 
         return rounded_pixmap
