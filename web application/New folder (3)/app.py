@@ -10,12 +10,12 @@ from PIL import Image
 app = Flask(__name__)
 CORS(app)
 
-# Load the pre-trained model
+
 model_filename = r"C:\Users\Bhushan\dermbot2.h5"
 model_path = os.path.join(os.getcwd(), model_filename)
 trained_model = tf.keras.models.load_model(model_path)
 
-# Define class labels
+
 class_labels = [
    "Acne and rosacea\nSymptoms: Stinging and burning of your skin . Red or pus-filled bumps that may resemble pimples . Patches of rough, dry skin.\nPrecautions: Protect your skin from the sun .Minimize stress . Protect your face from wind and cold." ,
    "Actinic keratosis\nSymptoms: Rough, dry or scaly patch of skin, usually less than 1 inch (2.5 centimeters) in diameter , Flat to slightly raised patch or bump on the top layer of skin , In some cases, a hard, wart like surface.\nPrecautions: Wear sunscreen every day , Use sunscreen daily , Avoid peak sun hours.",
@@ -70,19 +70,19 @@ def index():
 @app.route('/classify_image', methods=['POST'])
 def classify_image():
     try:
-        # Retrieve the uploaded image from the HTML form
+        
         uploaded_file = request.files['image']
 
-        # Check if a file was uploaded
+        
         if uploaded_file.filename != '':
-            # Save the uploaded image temporarily
+           
             image_path = 'uploaded_image.jpg'
             uploaded_file.save(image_path)
 
-            # Perform classification
+           
             predicted_class = skin_condition_classifier.predict_skin_condition(image_path)
 
-            # Return the predicted class as JSON
+           
             return jsonify({"result": predicted_class})
 
         else:
